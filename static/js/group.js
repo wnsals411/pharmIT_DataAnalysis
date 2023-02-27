@@ -55,20 +55,20 @@ function NewGridMapping() {
             options: {
                 listItems: [                  
                     {
-                        text: '팀장',
+                        text: '영업팀장',
                         value: '1'
                     },
                     {
-                        text: '팀원',
+                        text: '영업본부장',
                         value: '2'
                     },
                     {
-                        text: '임원',
+                        text: '마케팅',
                         value: '3'
                     },
                     {
-                        text: '관리자',
-                        value: '9999'
+                        text: '관리부서',
+                        value: '4'
                     }
                 ],
                 
