@@ -1,0 +1,184 @@
+@import url('https://fonts.googleapis.com/css?family=Poppins');
+/* BASIC */
+
+
+body {
+  background-image: url('../images/login_background.png');
+  text-align: center;
+}
+
+a {
+  color: #92badd;
+  display:inline-block;
+  text-decoration: none;
+  font-weight: 400;
+}
+
+h2 {
+  text-align: center;
+  font-size: 2.5vh;
+  font-weight: 300;
+  text-transform: uppercase;
+  display:inline-block;
+  /* margin: 4vh 0.8vh 1vh 0.8vh;  */
+  color: #cccccc;
+  
+}
+
+
+
+#anal_image {
+
+  width: 100%;
+  height: 100%;
+  
+  position: relative;
+  
+  background-image: url('../images/anal.png');
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  padding: 0px;
+  box-shadow: -1vh 1.5vh 4vh 0.3vh;
+}
+
+#formFooter {
+  background-color: #f6f6f6;
+  border-top: 1px solid #dce8f1;
+  padding: 25px;
+  text-align: center;
+  -webkit-border-radius: 10px 10px 0px 0px;
+  border-radius: 10px 10px 0px 0px;
+}
+
+
+/* TABS */
+
+h2.inactive {
+  color: #cccccc;
+}
+
+h2.active {
+  color: #56baed;
+  font-weight: 500;
+  font-size: 2.5vh;
+  letter-spacing: 0.1vh;
+  
+}
+
+/* FORM TYPOGRAPHY*/
+
+input[type=button], input[type=submit], input[type=reset]  {
+  background-color: #02324b;
+  border: none;
+  color: white;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  text-transform: uppercase;
+  font-size: 2.4vh;
+  font-weight: 700;
+  letter-spacing: 0.2vh;
+  width: 100%;
+  height: 100%;
+
+}
+
+input[type=button]:hover, input[type=submit]:hover, input[type=reset]:hover  {
+  background-color: #39ace7;
+  font-size: 2.2vh;
+}
+
+input[type=button]:active, input[type=submit]:active, input[type=reset]:active  {
+  -moz-transform: scale(0.95);
+  -webkit-transform: scale(0.95);
+  -o-transform: scale(0.95);
+  -ms-transform: scale(0.95);
+  transform: scale(0.95);
+}
+
+input[type=text], input[type=password] {
+  background-color: hsl(0, 100%, 100%);
+  border: none;
+  color: #000000;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 2.7vh;
+  width: 100%;
+  height: 100%;
+  border: 0.2vh solid #000000;
+  padding: 1.8vh;
+
+}
+
+input[type=text]::placeholder, input[type=password]::placeholder {
+  color: #cccccc;
+}
+
+.box1 {
+  position:absolute;
+  top: 20%;
+  left: 16.2%;
+  width: 34.6%;
+  height: 61.3%;
+}
+
+.box2 {
+  position:absolute;
+  top: 20%;
+  left: 50.8%;
+  width: 34.45%;
+  height: 61.3%;  
+  background-color: white;
+  box-shadow: 1vh 1.5vh 5vh 0.3vh;
+}
+
+#logo {
+  position: absolute;
+  top: 11.5%;
+  left: 26%;
+  width: 47.7%;
+  height: 11.5%;
+  background-image: url('../images/pharmbio.png');
+  background-size: 100% 100%;
+  background-image: no-repeat;
+}
+
+#login {
+  position: absolute;
+  top: 33.2%;
+  left: 36%;
+  width: 27.1%;
+  height: 4.3%;
+  text-align: center;  
+}
+
+#content {
+  position: absolute;
+  top: 42.5%;
+  left: 8%;
+  width: 83.5%;
+  height: 42.7%;
+  
+}
+
+#id_input {
+  position: absolute;
+  width: 100%;
+  height: 25.2%;
+}
+
+#pw_input {
+  position: absolute;
+  top: 38%;
+  width: 100%;
+  height: 25.2%;
+}
+
+#login_bt {
+  position: absolute;
+  top: 76%;
+  width: 100%;
+  height: 25.2%;
+  
+}
+

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+{% block title %}
+    <title>사용자 그룹설정</title>
+{% endblock %}
+<head>
+    <meta charset="UTF-8">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link href="{{ url_for('static', path='/css/tui-grid.css')}}" rel="stylesheet">
+    <script src="{{ url_for('static', path='/js/tui-grid.js')}}"></script>
+    <script src="{{ url_for('static', path='/js/group.js')}}"></script>
+    <link href="{{ url_for('static', path='/css/group.css') }}" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" 
+    integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css" />
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" 
+    integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+    
+</head>
+<body>
+    <div id="top">사용자 그룹설정 (그룹열 더블클릭하여 SELECT)</div>
+    <div id="content">
+        <div id="master"></div>
+        <div id="detail"></div>
+        <div id="save_button">
+            <button class="btn btn-primary btn-lg" data-bs-toggle="offcanvas" data-bs-target="#offcanvas" role="button" onclick = "save();">
+                <i class="bi bi-save">&nbsp;저장</i>
+            </button>
+        </div>            
+    </div>
+    
+    <script>
+        NewGridMapping()
+        tui.Grid.applyTheme('striped'); 
+        
+    </script>
+
+</body>
+
+</html>

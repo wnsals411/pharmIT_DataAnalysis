@@ -1,0 +1,33 @@
+.button_ab {
+    position: absolute;
+    top: 5px;
+    right: 70px;
+  }
+ 
+body {
+    min-height: 100vh;
+    background-color: #FFFFFF;
+}
+
+.offcanvas-header {
+    background-color: #2780E3;
+    color : #FFFFFF;
+    height: 52px;
+}
+.offcanvas-body {
+	background-color: #DDE6F0;
+    color : #FFFFFF;
+}
+
+.nav-link {
+    color: #0D3664;
+}
+
+.btn-primary {
+    background: #2780E3;
+}
+
+.bi {
+    font-style: normal;
+}
+

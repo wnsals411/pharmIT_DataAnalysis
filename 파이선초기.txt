@@ -1,0 +1,42 @@
+1. git 동기화
+git clone https://github.com/technotekr/Sample.git
+git clone https://github.com/shinokada/fastapi-web-starter.git
+git clone https://github.com/riseryan89/notification-api.git
+git clone https://github.com/PrettyPrinted/youtube_video_code.git
+git clone https://github.com/MushroomMaula/fastapi_login.git
+
+fastapi login
+
+2. python 환경 venv (파이썬 설치경로)
+C:\Users\pharmbio\AppData\Local\Programs\Python\Python310\python -m venv venv310
+
+3. venv 활성화 (프로젝트 폴더)
+c:\Python\fastapi\fastapi-web-starter\venv310\Scripts\activate.bat
+
+4. pip 업데이트 (프로젝트 폴더)
+c:\Python\fastapi\fastapi-web-starter\venv310\Scripts\python.exe -m pip install --upgrade pip
+
+5. 라이브러리 업데이트
+pip install -r requirements.txt
+
+DBMS
+
+CREATE TABLE pharm_AnalMenu(
+	MenuId			[int] NOT NULL,
+	MenuParent		[int] DEFAULT 0,
+	MenuName		[nvarchar](300) NULL,
+	MenuUrl			[nvarchar](300) NULL,
+	Sort			[int] NULL,
+	UseYN			[char](1) DEFAULT 'N',
+	LastDateTime	[datetime] DEFAULT getdate(), 
+	CONSTRAINT pharm_AnalMenu_pk PRIMARY KEY (MenuId)
+)
+
+
+insert into pharm_AnalMenu(MenuId,MenuParent,MenuName,MenuUrl,Sort)  values (1,0,'실적 현황','sale',1)
+insert into pharm_AnalMenu(MenuId,MenuParent,MenuName,MenuUrl,Sort)  values (2,0,'실적/콜 현황','sale_call',2)
+insert into pharm_AnalMenu(MenuId,MenuParent,MenuName,MenuUrl,Sort)  values (3,0,'티핑인사이트 분석','tiping_medicine_part',3)
+insert into pharm_AnalMenu(MenuId,MenuParent,MenuName,MenuUrl,Sort)  values (4,0,'콜 수행 현황','call',4)
+insert into pharm_AnalMenu(MenuId,MenuParent,MenuName,MenuUrl,Sort)  values (5,0,'목표대비 콜 수행 분포','aim_call',5)
+
+update pharm_AnalMenu set UseYN = 'Y'

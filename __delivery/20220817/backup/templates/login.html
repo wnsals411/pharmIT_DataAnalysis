@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+
+{% block title %}
+  <title>로그인</title>
+{% endblock %}
+
+<head>
+  {% block head %}    
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <link href="{{ url_for('static', path='/css/login.css') }}" rel="stylesheet">
+  {% endblock %}
+</head>
+
+<body>
+  <div class="wrapper fadeInDown">
+    <div id="formContent">
+
+      <!-- Remind Passowrd -->
+      <div id="formHeader">
+        <img src="{{ url_for('static', path='/images/pharmbio.png') }}" />
+      </div>
+
+      <!-- Tabs Titles -->
+      <h2 class="active"> LOG IN </h2>
+
+      <!-- Login Form -->
+      <form method="POST">
+        <input type="text" id="userid" class="fadeIn second" name="userid" value="{{userid}}" placeholder="id">
+        <input type="text" id="password" class="fadeIn third" name="password" value="{{password}}" placeholder="password">
+        <input type="button" class="fadeIn fourth" onclick="login()" value = "LOGIN">
+      </form>
+    
+    </div>
+  </div>
+
+    <!-- custom js -->
+  <script>
+
+    function login(){
+      var userid = $('#userid').val();
+      var password = $('#password').val();      
+
+      /**
+      var saveIdCheck = $('#save_id:checked').val();
+      
+      if(saveIdCheck == 'on'){
+          localStorage.setItem("saveId", userId);
+      } else{
+          localStorage.setItem("saveId", 'N');    
+      }
+      */
+      if($("#userid").val()===""){
+        alert("아이디를 입력해주세요.");
+        return false;
+      }
+
+      if($("#password").val()===""){
+        alert("비밀번호를 입력해주세요.");
+        return false;
+      }
+
+      var user_info = {"UserId":userid, "LoginPwd":password};
+  
+      $.ajax({
+          type : "POST",
+          url : "/login/",
+          contentType : "application/json",
+          data : JSON.stringify(user_info),
+          success : function(result){
+            //console.log(result["code"]);
+              
+              if(result["msg"] == "OK"){               
+                  //로그인 성공
+                  window.location.href = "/home/";
+                  //window.location.href = "/home/";
+                  return false;
+              } else {
+                  // 로그인 실패
+                  //window.location.href = "/anal/";
+                  alert(result["msg"] + " | code = " + result["code"])
+              }
+          },
+          error : function(jqXHR, status, error){
+              alert("알 수 없는 에러 [ " + error + " ]"); 
+          }
+      });
+        
+    }
+  </script>    
+
+  </body>
+
+</html>

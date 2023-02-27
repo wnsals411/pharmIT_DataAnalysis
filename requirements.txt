@@ -1,0 +1,16 @@
+uvicorn
+fastapi
+jinja2
+Pillow
+Markdown
+sqlalchemy
+pydantic
+PyJWT
+jose
+python-jose
+passlib
+python-multipart
+pymssql
+bcrypt
+starlette-context
+gunicorn

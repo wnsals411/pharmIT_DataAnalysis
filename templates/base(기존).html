@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    {% block head %}    
+
+    <link rel="icon" href="data:,">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" 
+    integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css" />
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" 
+    integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="{{ url_for('static', path='/js/alert.util.js') }}"></script>
+    <link href="{{ url_for('static', path='/css/offcanvas.css') }}" rel="stylesheet">
+      <script src="{{ url_for('static', path='/js/alert.util.js') }}"></script>
+    <link href="{{ url_for('static', path='/css/alert.util.css') }}" rel="stylesheet">
+
+    <title>{% block title %}{% endblock %}</title>    
+    {% endblock %}
+</head>
+
+<body id="body-pd">
+
+    <div class="offcanvas offcanvas-start w-25" tabindex="-1" id="offcanvas" data-bs-keyboard="false" data-bs-backdrop="false" offcanvas-bg-color ="#999999">
+        <div class="offcanvas-header">
+            <!--
+            <h5 class="offcanvas-title d-none d-sm-block align-items-center" id="offcanvas">Pharmbio</h5>
+            -->
+            <!--div class = "user_info">
+                <h6 class="offcanvas-title d-none d-sm-block align-items-center" id="offcanvas">{{user.EmpName}} ({{user.UserId}})
+                </h6>
+            </div-->   
+            <div class="user_info">{{user.EmpName}}&nbsp;({{user.UserId}})&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <button class="btn btn-danger" data-bs-toggle="offcanvas" data-bs-target="#offcanvas" role="button" onclick = "logout();">
+                <i class="bi bi-box-arrow-right h6">&nbsp;로그아웃</i>
+            </button>           
+            </div>
+
+            <!--div onclick = "logout();" class="nav-link">
+                <i class="bi box-arrow-right h6">L</i>
+            </div-->
+
+            <!--
+            <button id="logouot" type="button"><i class='fas fa-sign-out-alt'></i></button>            
+            -->
+            <button id="menu-btn" type="button" class="btn navbar-toggler" data-bs-dismiss="offcanvas" aria-label="Close">
+                <i class="bi bi-x-square fs-3"></i>
+            </button>
+            
+        </div>
+        <div class="offcanvas-body px-0">
+            <ul class="nav navmenu-nav flex-column wrap" id="v-pills-tab">
+
+            {% if data %}
+                {% for menu in data %}
+
+                    <li class="nav-item" width = '100%'>
+                        <!--
+                        <a href="http://106.240.228.114:8087/{{menu.MenuUrl}}" class="nav-link text-truncate">
+                            <span class=">{{menu.MenuName}}</span>
+                        </a>
+                        -->
+                            <a class="nav-link text-truncate" href="#" onclick="open_in_frame('http://106.240.228.114:8087/{{menu.MenuUrl}}');">
+                                <i class="bi bi-graph-up-arrow" style="font-weight: bold"><span >&nbsp;&nbsp;{{menu.MenuName}}</span></i>
+                            </a>
+                        </i>
+                    </li>
+                {% endfor %}
+            {% else %}
+                <li class="nav-item">
+                    <a href="#" class="nav-link text-truncate">
+                        <span class="ms-1 d-none d-sm-inline">None</span>
+                    </a>
+                </li>    
+            {% endif %}            
+            </ul>
+        </div>
+    </div>
+    <div class="container-fluid" >
+        <div class="content_wrap">  
+            <div class = "button_ab">
+                <button class="btn btn-primary" data-bs-toggle="offcanvas" data-bs-target="#offcanvas" role="button">
+                    <i class="bi bi-justify h5" data-bs-toggle="offcanvas" data-bs-target="#offcanvas">메뉴</i>
+                </button>
+            </div>
+            <div class = "content_ab">
+                {% block page_content %}
+                {% endblock %}
+            </div>
+      
+        </div>
+    </div>
+    <div>
+        <!--<iframe src="http://106.240.228.114:8087/tiping_medicine_part" style="border: 1px solid #AAA; width:100%; height:100vh; margin-left: 30px;"></iframe> -->
+        <iframe id = "anal_frame" src="http://106.240.228.114:8087/sale" style="border: 1px solid #AAA; width:100%; height:99vh;"></iframe>
+    </div>
+    <!-- custom js -->
+    <script>
+        var menu_btn = document.querySelector("#menu-btn");
+        var sidebar = document.querySelector("#offcanvas");
+
+        menu_btn.addEventListener("click", () => {
+        sidebar.classList.toggle("active-nav");
+        });
+
+        function open_in_frame(url) {
+            $('#anal_frame').attr('src', url);
+            $('#menu-btn').click()
+        }
+
+        function logout(){
+            $.ajax({
+                type : "GET",
+                url : "/logout",
+                success : function(result){
+                //console.log(result);
+                //alert(result["msg"])
+                //console.log(result["code"]);
+                   
+                   // if(result["msg"] == "OK"){               
+                        //로그아웃 성공
+                        window.location.href = "/login/";
+                        return false;
+                   // } else {
+                        // 로그아웃 실패
+                   //     util.msg.alert(result["msg"]);
+                    //}
+
+                },
+                error : function(jqXHR, status, error){
+                    alert(result["msg"])
+                    util.msg.alert("알 수 없는 에러 [ " + error + " ]"); 
+                }
+            });
+    }
+
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,72 @@
+.button_ab {
+    position: absolute;
+    top: 5px;
+    right: 70px;
+}
+
+.user_info {
+    /* position: absolute;
+    top: 15px;
+    right: 200px; */
+    color: #FFFFFF;
+    font-family: normal;
+    font-style: normal;
+    font-size: 16px;
+    /* font-weight: bold; */   
+}    
+  
+body {
+    min-height: 100vh;
+    background-color: #FFFFFF;
+}
+
+.offcanvas-header {
+    background-color: #2780E3;
+    color : #FFFFFF;
+    height: 52px;
+}
+.offcanvas-body {
+    background-color: #EEEEEE;
+    color : #FFFFFF;
+}
+
+.nav-link {
+    /* color: #0D3664; */
+    color : #123d6e;
+    font-weight: bold;    
+}
+
+.nav-link:hover {
+    /* color: #0D3664; */
+    color :  #FFFFFF;
+    background-color : #2780E3;
+    font-weight: bold;    
+}
+
+.nav-item {   
+    margin-top: 20px;
+}
+
+.btn-primary {
+    font-size: 16px;
+    font-weight: bold;    
+    background: #2780E3;
+    font-weight: bold;
+}
+
+.btn-danger {
+    font-size: 14px;
+    font-weight: bold;
+    box-sizing: content-box;
+    height: 20px;
+    background-color : #2780E3;
+    --bs-btn-border-color: #2780E3;
+    --bs-btn-hover-color: #fff;
+    --bs-btn-hover-bg: #0D3664;
+    --bs-btn-hover-border-color: #0D3664;
+}
+
+.bi {
+    font-style: normal;
+}
+
