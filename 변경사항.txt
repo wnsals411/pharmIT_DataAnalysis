@@ -1,0 +1,28 @@
+1. 기본세팅 - 경로설정, 가상환경 재설치, pip install 등
+
+2. app/database/schema.py (DB연동 모델, 클래스함수 수정 및 추가)
+
+3. app/routers/index.py (라이브러리 import, 화면구성 추가 등)
+
+4. app/model.py (UserToken에 부서, 그룹정보 추가, 신규모델 작성 등)
+
+5. 
+static/css/group.css (사용자-그룹 매핑하는 화면 css)
+static/css/login.css (로그인 화면 css수정본)
+static/css/secu.css (권한부여하는 화면 css)
+static/css/tui-grid.css (토스트그리드 css)
+
+6.
+static/images/anal.png (로그인화면 사용)
+static/images/login_background.png (로그인화면 사용)
+
+7. 
+static/js/group.js (사용자-그룹 매핑 js)
+static/js/secu.js (권한부여화면 js)
+static/js/tui-grid.js (토스트그리드 js)
+
+8.
+templates/base.html (메인화면 수정본 - 권한있는 메뉴만 보이도록)
+templates/group.html (사용자-그룹 매핑하는 페이지)
+templates/login.html (로그인 화면 수정)
+templates/secu.html (권한부여하는 페이지)
