@@ -62,11 +62,15 @@ async def home(request: Request):
     user_group = AnalGroup.getsort(UserID=user.UserId)
 
     print('★★★★★★★★★★★★★★★★★★★★★★★★')
-    print(user)
+    #print(user)
     
     data = AnalSecu.getallsort(UserId=user.UserId, YN='Y')
     data2 = AnalSecuDept.getallsort(DeptSeq=user.DeptSeq, YN='Y')
-    data3 = AnalSecuGroup.getallsort(GroupSeq=user_group[0].GroupSeq, YN='Y')
+
+    if len(user_group) == 0:
+        data3 = AnalSecuGroup.getallsort(GroupSeq=0, YN='Y')
+    elif len(user_group) == 1:
+        data3 = AnalSecuGroup.getallsort(GroupSeq=user_group[0].GroupSeq, YN='Y')
     
     print('★★★★★★★★★★★★★★★★★★★★★★★★')
     return templates.TemplateResponse("base.html", {"request": request, "data": data, "data2": data2, "data3": data3, "user": user})
