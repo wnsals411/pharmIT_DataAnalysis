@@ -82,9 +82,25 @@ async def anal(request: Request):
     # print (request)
     return templates.TemplateResponse("page.html", {"request": request, "data": data})
 
+# @router.get("/secu/", response_class=HTMLResponse)
+# async def secu(request: Request):
+#     return templates.TemplateResponse("secu.html", {"request": request})    
+
 @router.get("/secu/", response_class=HTMLResponse)
 async def secu(request: Request):
-    return templates.TemplateResponse("secu.html", {"request": request})    
+    user = request.state.user
+    user_group = AnalGroup.getsort(UserID=user.UserId)
+    data = AnalSecu.getallsort(UserId=user.UserId, YN='Y')
+    data2 = AnalSecuDept.getallsort(DeptSeq=user.DeptSeq, YN='Y')
+
+    if user.UserId == 20220016:    
+        return templates.TemplateResponse("secu.html", {"request": request})    
+    else:
+        if len(user_group) == 0:
+            data3 = AnalSecuGroup.getallsort(GroupSeq=0, YN='Y')
+        elif len(user_group) == 1:
+            data3 = AnalSecuGroup.getallsort(GroupSeq=user_group[0].GroupSeq, YN='Y')
+        return templates.TemplateResponse("base.html", {"request": request, "data": data, "data2": data2, "data3": data3, "user": user})    
 
 @router.get("/json_menu/")
 async def secu(request: Request):
@@ -247,10 +263,27 @@ async def save(request: Request, data: Data, session: Session = Depends(db.sessi
 
     AnalSecuDept.filter(MenuId = int(data.callmenu[0]), DeptSeq = int(data.call2[i])).all()
 
+# @router.get("/group_mapping/", response_class=HTMLResponse)
+# async def group(request: Request):
+#     group = AnalGroup.getallsort()
+#     return templates.TemplateResponse("group.html", {"request": request, "group": group})
+
 @router.get("/group_mapping/", response_class=HTMLResponse)
-async def group(request: Request):
-    group = AnalGroup.getallsort()
-    return templates.TemplateResponse("group.html", {"request": request, "group": group})
+async def secu(request: Request):
+    user = request.state.user
+    user_group = AnalGroup.getsort(UserID=user.UserId)
+    data = AnalSecu.getallsort(UserId=user.UserId, YN='Y')
+    data2 = AnalSecuDept.getallsort(DeptSeq=user.DeptSeq, YN='Y')
+
+    if user.UserId == 20220016:    
+        group = AnalGroup.getallsort()
+        return templates.TemplateResponse("group.html", {"request": request, "group": group})
+    else:
+        if len(user_group) == 0:
+            data3 = AnalSecuGroup.getallsort(GroupSeq=0, YN='Y')
+        elif len(user_group) == 1:
+            data3 = AnalSecuGroup.getallsort(GroupSeq=user_group[0].GroupSeq, YN='Y')
+        return templates.TemplateResponse("base.html", {"request": request, "data": data, "data2": data2, "data3": data3, "user": user})    
 
 @router.post("/save_groupmapping/", status_code=200, response_model=MessageOk)
 async def save(save_xml: PostXML):
