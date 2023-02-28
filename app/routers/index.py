@@ -47,12 +47,6 @@ def login(request: Request):
 #     user = request.state.user
 #     data = AnalMenu.getallsort()
 #     return templates.TemplateResponse("base.html", {"request": request, "data": data, "user": user})
-@router.get("/testst/", response_class=HTMLResponse)
-async def home(request: Request):
-    user = request.state.user
-    data = AnalSecu.getsort(UserId=user.UserId, YN='Y')
-
-    return data[0].UserId
 
 @router.get("/home/", response_class=HTMLResponse)
 async def home(request: Request):
@@ -60,10 +54,7 @@ async def home(request: Request):
 
     user = request.state.user
     user_group = AnalGroup.getsort(UserID=user.UserId)
-
-    print('★★★★★★★★★★★★★★★★★★★★★★★★')
-    #print(user)
-    
+   
     data = AnalSecu.getallsort(UserId=user.UserId, YN='Y')
     data2 = AnalSecuDept.getallsort(DeptSeq=user.DeptSeq, YN='Y')
 
@@ -71,8 +62,7 @@ async def home(request: Request):
         data3 = AnalSecuGroup.getallsort(GroupSeq=0, YN='Y')
     elif len(user_group) == 1:
         data3 = AnalSecuGroup.getallsort(GroupSeq=user_group[0].GroupSeq, YN='Y')
-    
-    print('★★★★★★★★★★★★★★★★★★★★★★★★')
+
     return templates.TemplateResponse("base.html", {"request": request, "data": data, "data2": data2, "data3": data3, "user": user})
 
 @router.get("/anal/", response_class=HTMLResponse)
@@ -89,18 +79,10 @@ async def anal(request: Request):
 @router.get("/secu/", response_class=HTMLResponse)
 async def secu(request: Request):
     user = request.state.user
-    user_group = AnalGroup.getsort(UserID=user.UserId)
-    data = AnalSecu.getallsort(UserId=user.UserId, YN='Y')
-    data2 = AnalSecuDept.getallsort(DeptSeq=user.DeptSeq, YN='Y')
-
     if user.UserId == 20220016:    
         return templates.TemplateResponse("secu.html", {"request": request})    
     else:
-        if len(user_group) == 0:
-            data3 = AnalSecuGroup.getallsort(GroupSeq=0, YN='Y')
-        elif len(user_group) == 1:
-            data3 = AnalSecuGroup.getallsort(GroupSeq=user_group[0].GroupSeq, YN='Y')
-        return templates.TemplateResponse("base.html", {"request": request, "data": data, "data2": data2, "data3": data3, "user": user})    
+        return RedirectResponse(url="/home", status_code=302)
 
 @router.get("/json_menu/")
 async def secu(request: Request):
@@ -151,23 +133,9 @@ async def secu(request: Request, MenuId):
 
     return JSONResponse(content=Menu_json)                
 
-# @router.get("/testst")
-# async def get_user(request: Request, session: Session = Depends(db.session),):
-
-#     tmp = User.getsort(UserId = '20220016')
-
-#     return tmp[0].DeptSeq
-
 @router.post("/save_emp/", status_code=200, response_model=MessageOk)
 async def save(request: Request, data: Data, session: Session = Depends(db.session),):
 
-    print('★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★')
-    print('★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★')
-    print(data.call1)
-    print(data.call2)
-    print(data.callmenu)
-    print('★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★')
-    print('★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★')
     if (len(data.call1) != 0):
         for i in range(len(data.call1)): # N으로 변경
             if (AnalSecu.filter(MenuId = int(data.callmenu[0]), UserId = data.call1[i], YN = 'N').count() == 1): # 변화 없는경우 -> pass
@@ -188,19 +156,12 @@ async def save(request: Request, data: Data, session: Session = Depends(db.sessi
                 tmp = User.getsort(UserId = data.call2[i])
                 AnalSecu.create(session = session, DeptSeq = int(tmp[0].DeptSeq), DeptName = tmp[0].DeptName, UserId = data.call2[i], EmpName = tmp[0].EmpName, MenuId = int(data.callmenu[0]), MenuName = data.callmenu[1], MenuUrl = data.callmenu[2], Sort = data.callmenu[3], YN = 'Y', LastDateTime = now)
 
-    # print(data.call1)
-    # print(data.call2)
-    # print(data.callmenu)
-    print('★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★')
-
     response = JSONResponse(status_code=200, content=dict(msg="OK"))
 
     return response
 
 @router.post("/save_dept/", status_code=200, response_model=MessageOk)
 async def save(request: Request, data: Data, session: Session = Depends(db.session),):
-
-    print('★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★')
 
     for i in range(len(data.call1)):
         if (AnalSecuDept.filter(MenuId = int(data.callmenu[0]), DeptSeq = int(data.call1[i]), YN = 'N').count() == 1):
@@ -220,11 +181,6 @@ async def save(request: Request, data: Data, session: Session = Depends(db.sessi
             tmp = AnalDept.getsort(DeptSeq = data.call2[i])
             AnalSecuDept.create(session = session, DeptSeq = data.call2[i], DeptName = tmp[0].DeptName, MenuId = int(data.callmenu[0]), MenuName = data.callmenu[1], MenuUrl = data.callmenu[2], Sort = data.callmenu[3], YN = 'Y', LastDateTime = now)            
 
-    # print(data.call1)
-    # print(data.call2)
-    # print(data.callmenu)
-    print('★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★')
-
     response = JSONResponse(status_code=200, content=dict(msg="OK"))
 
     return response
@@ -232,7 +188,6 @@ async def save(request: Request, data: Data, session: Session = Depends(db.sessi
 @router.post("/save_group/", status_code=200, response_model=MessageOk)
 async def save(request: Request, data: Data, session: Session = Depends(db.session),):
 
-    print('★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★')
     for i in range(len(data.call1)):
         if (AnalSecuGroup.filter(MenuId = int(data.callmenu[0]), GroupSeq = int(data.call1[i]), YN = 'N').count() == 1):
             continue
@@ -251,17 +206,10 @@ async def save(request: Request, data: Data, session: Session = Depends(db.sessi
             tmp = AnalGroup.getsort(GroupSeq = data.call2[i])
             AnalSecuGroup.create(session = session, GroupSeq = data.call2[i], GroupName = tmp[0].GroupName, MenuId = int(data.callmenu[0]), MenuName = data.callmenu[1], MenuUrl = data.callmenu[2], Sort = data.callmenu[3], YN = 'Y', LastDateTime = now)            
 
-    # print(data.call1)
-    # print(data.call2)
-    # print(data.callmenu)
-    print('★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★')
-
     response = JSONResponse(status_code=200, content=dict(msg="OK"))
 
     return response        
 
-
-    AnalSecuDept.filter(MenuId = int(data.callmenu[0]), DeptSeq = int(data.call2[i])).all()
 
 # @router.get("/group_mapping/", response_class=HTMLResponse)
 # async def group(request: Request):
@@ -271,19 +219,12 @@ async def save(request: Request, data: Data, session: Session = Depends(db.sessi
 @router.get("/group_mapping/", response_class=HTMLResponse)
 async def secu(request: Request):
     user = request.state.user
-    user_group = AnalGroup.getsort(UserID=user.UserId)
-    data = AnalSecu.getallsort(UserId=user.UserId, YN='Y')
-    data2 = AnalSecuDept.getallsort(DeptSeq=user.DeptSeq, YN='Y')
 
     if user.UserId == 20220016:    
         group = AnalGroup.getallsort()
         return templates.TemplateResponse("group.html", {"request": request, "group": group})
     else:
-        if len(user_group) == 0:
-            data3 = AnalSecuGroup.getallsort(GroupSeq=0, YN='Y')
-        elif len(user_group) == 1:
-            data3 = AnalSecuGroup.getallsort(GroupSeq=user_group[0].GroupSeq, YN='Y')
-        return templates.TemplateResponse("base.html", {"request": request, "data": data, "data2": data2, "data3": data3, "user": user})    
+        return RedirectResponse(url="/home", status_code=302)    
 
 @router.post("/save_groupmapping/", status_code=200, response_model=MessageOk)
 async def save(save_xml: PostXML):
