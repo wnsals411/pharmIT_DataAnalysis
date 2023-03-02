@@ -17,7 +17,7 @@ a {
 h2 {
   text-align: center;
   font-size: 2.5vh;
-  font-weight: 300;
+  font-weight: bold;
   text-transform: uppercase;
   display:inline-block;
   /* margin: 4vh 0.8vh 1vh 0.8vh;  */
@@ -59,7 +59,7 @@ h2.inactive {
 
 h2.active {
   color: #56baed;
-  font-weight: 500;
+  font-weight: bold;
   font-size: 2.5vh;
   letter-spacing: 0.1vh;
   
@@ -117,7 +117,7 @@ input[type=text]::placeholder, input[type=password]::placeholder {
 .box1 {
   position:absolute;
   top: 20%;
-  left: 16.2%;
+  left: 21.2%;
   width: 34.6%;
   height: 61.3%;
 }
@@ -126,7 +126,7 @@ input[type=text]::placeholder, input[type=password]::placeholder {
   position:absolute;
   top: 20%;
   left: 50.8%;
-  width: 34.45%;
+  width: 29.45%;
   height: 61.3%;  
   background-color: white;
   box-shadow: 1vh 1.5vh 5vh 0.3vh;
@@ -146,8 +146,8 @@ input[type=text]::placeholder, input[type=password]::placeholder {
 #login {
   position: absolute;
   top: 33.2%;
-  left: 36%;
-  width: 27.1%;
+  left: 0%;
+  width: 100%;
   height: 4.3%;
   text-align: center;  
 }
