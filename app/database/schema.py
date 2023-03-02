@@ -223,6 +223,7 @@ class User(Base, BaseMixin):
     DeptName = Column(String(length=200), nullable=True)    
     UMPgName = Column(String(length=400), nullable=True)
     GroupSeq = Column(String(length=200), nullable=False) # 수정
+    Chk      = Column(Integer, nullable=True)
     # keys = relationship("ApiKeys", back_populates="user")
 
 class AnalMenu(Base, BaseMixin):

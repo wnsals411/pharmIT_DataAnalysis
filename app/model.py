@@ -25,6 +25,7 @@ class UserToken(BaseModel):
     EmpName: str = None
     DeptSeq: int
     GroupSeq: int
+    Chk: int
 
     class Config:
         orm_mode = True

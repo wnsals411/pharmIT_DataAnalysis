@@ -53,6 +53,7 @@ async def home(request: Request):
     # data = openfile("menu.md")
 
     user = request.state.user
+
     user_group = AnalGroup.getsort(UserID=user.UserId)
    
     data = AnalSecu.getallsort(UserId=user.UserId, YN='Y')
@@ -79,7 +80,7 @@ async def anal(request: Request):
 @router.get("/secu/", response_class=HTMLResponse)
 async def secu(request: Request):
     user = request.state.user
-    if user.UserId == 20220016:    
+    if user.Chk == 1:    
         return templates.TemplateResponse("secu.html", {"request": request})    
     else:
         return RedirectResponse(url="/home", status_code=302)
@@ -220,7 +221,7 @@ async def save(request: Request, data: Data, session: Session = Depends(db.sessi
 async def secu(request: Request):
     user = request.state.user
 
-    if user.UserId == 20220016:    
+    if user.Chk == 1:    
         group = AnalGroup.getallsort()
         return templates.TemplateResponse("group.html", {"request": request, "group": group})
     else:
