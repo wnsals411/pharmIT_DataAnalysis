@@ -77,6 +77,11 @@
     </div>
     <!-- custom js -->
     <script>
+        
+        admin = '{{user.Chk}}'
+        console.log(admin)
+        
+
         {% for e in data %}
             console.log('{{e.MenuName}}')
         {% endfor %}
@@ -121,7 +126,7 @@
         console.log(Result_sorted);
         console.log(Result);
 
-        if (Result_sorted.length == 0) {
+        if (Result_sorted.length == 0 && admin != 1) {
             document.getElementById('v-pills-tab').innerHTML += `
                     <li class="nav-item" width = '100%'>
                             <a class="nav-link text-truncate">
@@ -140,6 +145,20 @@
                                 <i class="bi bi-graph-up-arrow" style="font-weight: bold"><span >&nbsp;&nbsp;` + Result.MenuName[i] + `</span></i>
                             </a>
                         </i>
+                    </li>`
+        }
+
+        if (admin == 1) {
+            document.getElementById('v-pills-tab').innerHTML += `
+                    <li class="nav-item" width = '100%'>
+                        <a class="nav-link text-truncate" href="../secu");">
+                            <i class="bi bi-person-circle" style="font-weight: bold"><span >&nbsp;&nbsp;권한 설정</span></i>
+                        </a>
+                    </li>
+                    <li class="nav-item" width = '100%'>
+                        <a class="nav-link text-truncate" href="../group_mapping");">
+                            <i class="bi bi-people-fill" style="font-weight: bold"><span >&nbsp;&nbsp;그룹 설정</span></i>
+                        </a>
                     </li>`
         }
                 
